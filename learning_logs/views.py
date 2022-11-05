@@ -12,3 +12,10 @@ def topics(request):
     topics = Topic.objects.order_by('date_added')
     context = {'topics': topics}
     return render(request, 'learning_logs/pages/topics.html', context)
+
+def topic(request, id):
+    """Mostra um único assunto e todas as suas entradas."""
+    topic = Topic.objects.get(id=id)
+    entries = topic.entry_set.order_by('-date_added')
+    context = {'topic': topic, 'entries': entries}
+    return render(request, 'learning_logs/pages/topic.html', context)
