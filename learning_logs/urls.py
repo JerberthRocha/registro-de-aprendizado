@@ -10,4 +10,5 @@ urlpatterns = [
     path('topics/', views.topics, name='topics'), # Mostra todos os assuntos
     path('new_topic/', views.new_topic, name='new_topic'), # # Página para adicionar um novo assunto
     path('topics/<int:id>/', views.topic, name='topic'), # Página de detalhes para um único assunto
+    path('new_entry/<int:id>/', views.new_entry, name='new_entry'), # Página para adicionar uma nova entrada
 ]
