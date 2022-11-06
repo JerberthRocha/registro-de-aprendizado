@@ -53,5 +53,5 @@ def new_entry(request, id):
             new_entry.save()
             return(HttpResponseRedirect(reverse('learning_logs:topic', args=[id])))
         
-        context = {'topic': topic, 'form': form}
-        return render(request, 'learning_logs/pages/new_entry.html', context)
+    context = {'topic': topic, 'form': form}
+    return render(request, 'learning_logs/pages/new_entry.html', context)
