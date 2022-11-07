@@ -1,0 +1,14 @@
+{% extends 'learning_logs/pages/base.html' %}
+
+{% block content %}
+    {% if forms.errors %}
+        <p>Your username and password didn't match. Please try again.
+    {% endif %}
+
+    <form method="post" action="{% url 'users:login' %}"> 
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button name="submit">LogIn</button>
+        <input type="hidden" name="next" value="{% url 'learning_logs:index' %}" />
+    </form>
+{% endblock content %}
