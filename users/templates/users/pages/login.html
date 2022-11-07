@@ -7,14 +7,6 @@
 {% endblock header %}
 
 {% block content %}
-    {% comment %} {% if forms.errors %}
-        <p>Your username and password didn't match. Please try again.
-    {% endif %}
-
-    <form method="post" action="{% url 'users:login' %}"> 
-        {% csrf_token %}
-        {{ form.as_p }} {% endcomment %}
-        {% comment %} <button name="submit">Log In</button> {% endcomment %}
     <form method="post" action="{% url 'users:login' %}" class="form"> 
         {% csrf_token %}
         {% bootstrap_form form %}
