@@ -1,6 +1,7 @@
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
+from django.contrib.auth.decorators import login_required
 
 from .forms import EntryForm, TopicForm
 from .models import Entry, Topic
@@ -11,6 +12,7 @@ def index(request):
     """A página inicial de Learning Log"""
     return render(request, 'learning_logs/pages/index.html')
 
+@login_required(login_url='users:login', redirect_field_name='next')
 def topics(request):
     """Mostra todos os assuntos."""
     topics = Topic.objects.order_by('date_added')
