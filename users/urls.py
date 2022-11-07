@@ -12,4 +12,5 @@ urlpatterns = [
         LoginView.as_view(template_name='users/pages/login.html'), 
         name='login'
     ), # Página de login
+    url('logout/', views.logout_view, name='logout'),
 ]

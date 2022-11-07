@@ -20,5 +20,5 @@ from learning_logs import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('learning_logs.urls')),
-    path('users', include('users.urls')),
+    path('users/', include('users.urls')),
 ]
