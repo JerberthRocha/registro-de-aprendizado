@@ -4,7 +4,7 @@
     {% if user.is_authenticated %}
         Hello, {{ user.first_name }}.
     {% else %}
-        <a href="{% url 'users:login' %}">LogIn</a>
+        <a href="{% url 'users:login' %}">Log In</a>
     {% endif %}
 </p>
 
