@@ -1,7 +1,8 @@
-from django.http import HttpResponseRedirect, Http404
+from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required
+from utils.check_topic_owner import check_topic_owner
 
 from .forms import EntryForm, TopicForm
 from .models import Entry, Topic
@@ -25,8 +26,7 @@ def topic(request, topic_id):
     topic = Topic.objects.get(id=topic_id)
 
     # Garante que o assunto pertence ao usuário atual
-    if topic.owner != request.user:
-        raise Http404
+    check_topic_owner(request, topic)
 
     entries = topic.entry_set.order_by('-date_added')
     context = {'topic': topic, 'entries': entries}
@@ -54,6 +54,10 @@ def new_topic(request):
 def new_entry(request, topic_id):
     """Acrescenta uma nova entrada para um assunto em particular."""
     topic = Topic.objects.get(id=topic_id)
+
+    #     raise Http404
+    check_topic_owner(request, topic)
+
     if request.method != 'POST':
         # Nenhum dado submetido; cria um formulário em branco
         form = EntryForm()
@@ -75,9 +79,8 @@ def edit_entry(request, entry_id):
     entry = Entry.objects.get(id=entry_id)
     topic = entry.topic
 
-    # Garante que o assunto pertence ao usuário atual
-    if topic.owner != request.user:
-        raise Http404
+    #     raise Http404
+    check_topic_owner(request, topic)
 
     if request.method != 'POST':
         # Requisição inicial; 
