@@ -15,7 +15,7 @@ def index(request):
 @login_required(login_url='users:login', redirect_field_name='next')
 def topics(request):
     """Mostra todos os assuntos."""
-    topics = Topic.objects.order_by('date_added')
+    topics = Topic.objects.filter(owner=request.user).order_by('date_added')
     context = {'topics': topics}
     return render(request, 'learning_logs/pages/topics.html', context)
 
