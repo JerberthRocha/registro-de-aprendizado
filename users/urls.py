@@ -13,4 +13,5 @@ urlpatterns = [
         name='login'
     ), # Página de login
     url('logout/', views.logout_view, name='logout'),
+    url('register/', views.register, name='register'), # Página de cadastro
 ]
