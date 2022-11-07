@@ -42,7 +42,9 @@ def new_topic(request):
         # Dados de POST submetidos; processa os dados
         form = TopicForm(request.POST)
         if form.is_valid:
-            form.save()
+            new_topic = form.save(commit=False)
+            new_topic.owner = request.user
+            new_topic.save()
             return(HttpResponseRedirect(reverse('learning_logs:topics')))
 
     context = {'form': form}
@@ -76,7 +78,7 @@ def edit_entry(request, entry_id):
     # Garante que o assunto pertence ao usuário atual
     if topic.owner != request.user:
         raise Http404
-        
+
     if request.method != 'POST':
         # Requisição inicial; 
         # preenche previamente o formulário com a entrada atual
