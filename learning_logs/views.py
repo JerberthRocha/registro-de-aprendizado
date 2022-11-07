@@ -19,6 +19,7 @@ def topics(request):
     context = {'topics': topics}
     return render(request, 'learning_logs/pages/topics.html', context)
 
+@login_required(login_url='users:login', redirect_field_name='next')
 def topic(request, topic_id):
     """Mostra um único assunto e todas as suas entradas."""
     topic = Topic.objects.get(id=topic_id)
@@ -26,6 +27,7 @@ def topic(request, topic_id):
     context = {'topic': topic, 'entries': entries}
     return render(request, 'learning_logs/pages/topic.html', context)
 
+@login_required(login_url='users:login', redirect_field_name='next')
 def new_topic(request):
     """Adiciona um novo assunto."""
     if request.method != 'POST':
@@ -41,6 +43,7 @@ def new_topic(request):
     context = {'form': form}
     return render(request, 'learning_logs/pages/new_topic.html', context)
 
+@login_required(login_url='users:login', redirect_field_name='next')
 def new_entry(request, topic_id):
     """Acrescenta uma nova entrada para um assunto em particular."""
     topic = Topic.objects.get(id=topic_id)
@@ -59,6 +62,7 @@ def new_entry(request, topic_id):
     context = {'topic': topic, 'form': form}
     return render(request, 'learning_logs/pages/new_entry.html', context)
 
+@login_required(login_url='users:login', redirect_field_name='next')
 def edit_entry(request, entry_id): 
     """Edita uma entrada existente."""
     entry = Entry.objects.get(id=entry_id)
