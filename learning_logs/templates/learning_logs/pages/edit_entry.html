@@ -3,7 +3,9 @@
 {% load bootstrap3 %}
 
 {% block header %}
-    <h2>Edit entry of {{ topic }}:</h2> 
+    <h2>Edit entry of
+        <a href="{% url 'learning_logs:topic' topic.id %}">{{ topic }}</a>:
+    </h2>
 {% endblock header %}
 
 {% block content %}
