@@ -2,18 +2,19 @@
 
 {% block header %}
     <div class='jumbotron'> 
-        <h1>Track your learning.</h1>
+        <h1 style="text-align:center" >Track your learning</h1>
     </div> 
 {% endblock header %}
 
 {% block content %}
-    <h2> 
+
+    <h3 style="text-align:center" > 
         {% if not user.is_authenticated %}
             <a href="{% url 'users:register' %}">Register an account</a> 
             to make your own Learning Log, and list the topics you're learning about.
         {% endif %}
-    </h2> 
-    <h2> 
+
         Whenever you learn something new about a topic, make an entry summarizing what you've learned.
-    </h2>
+    </h3>
+
 {% endblock content %}
