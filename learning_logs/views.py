@@ -43,7 +43,7 @@ def new_topic(request):
         form = TopicForm(request.POST)
         if form.is_valid:
             new_topic = form.save(commit=False)
-            new_topic.owner = request.user
+            new_topic.owner = request.user # Vincula o tópico criado ao usuário correto
             new_topic.save()
             return(HttpResponseRedirect(reverse('learning_logs:topics')))
 
@@ -54,8 +54,8 @@ def new_topic(request):
 def new_entry(request, topic_id):
     """Acrescenta uma nova entrada para um assunto em particular."""
     topic = Topic.objects.get(id=topic_id)
-
-    #     raise Http404
+    
+    # Garante que o assunto pertence ao usuário atual
     check_topic_owner(request, topic)
 
     if request.method != 'POST':
@@ -66,7 +66,7 @@ def new_entry(request, topic_id):
         form = EntryForm(data=request.POST)
         if form.is_valid():
             new_entry = form.save(commit=False)
-            new_entry.topic = topic
+            new_entry.topic = topic # Vincula o assunto criado ao tópico correto
             new_entry.save()
             return(HttpResponseRedirect(reverse('learning_logs:topic', args=[topic_id])))
         
@@ -79,13 +79,12 @@ def edit_entry(request, entry_id):
     entry = Entry.objects.get(id=entry_id)
     topic = entry.topic
 
-    #     raise Http404
+    # Garante que o assunto pertence ao usuário atual
     check_topic_owner(request, topic)
 
     if request.method != 'POST':
         # Requisição inicial; 
-        # preenche previamente o formulário com a entrada atual
-        form = EntryForm(instance=entry) # Esse argumento diz ao Django para criar o formulário previamente preenchido com informações do objeto de entrada existente.
+        form = EntryForm(instance=entry) # O parametro diz ao Django para criar o formulário preenchido com as informações do objeto salvas no banco de dados.
     else:
         # Dados de POST submetidos; processa os dados
         form = EntryForm(instance=entry, data=request.POST)
